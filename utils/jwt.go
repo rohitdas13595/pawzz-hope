@@ -7,7 +7,7 @@ import (
 )
 
 type AdminCreateToken struct {
-	Id    string
+	Id    uint
 	Email string
 }
 
@@ -39,7 +39,7 @@ func VerifyAdminToken(tokenString string) (*AdminCreateToken, error) {
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		return &AdminCreateToken{
-			Id:    claims["id"].(string),
+			Id:    claims["id"].(uint),
 			Email: claims["email"].(string),
 		}, nil
 	}

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "bruno-paws-hope",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

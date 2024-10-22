@@ -5,8 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/rohitdas13595/pawzz-hope/db"
+	"github.com/rohitdas13595/pawzz-hope/app/admin"
 	"github.com/rohitdas13595/pawzz-hope/docs"
+	"github.com/rohitdas13595/pawzz-hope/migrations"
 	"github.com/rohitdas13595/pawzz-hope/utils"
 	"github.com/rohitdas13595/pawzz-hope/zlog"
 	cors "github.com/rs/cors/wrapper/gin"
@@ -19,7 +20,7 @@ func main() {
 
 	utils.InitSettings()
 	// migration
-	db.AutoMigrate()
+	migrations.AutoMigrate()
 
 	server := gin.Default()
 	server.Use(zlog.GinLogger())
@@ -33,7 +34,6 @@ func main() {
 	server.Use(corsConfig)
 
 	v1 := server.Group("/api/v1")
-
 	{
 		v1.GET("/health", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{
@@ -41,6 +41,7 @@ func main() {
 			})
 		})
 
+		admin.AdminController(v1)
 	}
 
 	server.GET("/", func(c *gin.Context) {
